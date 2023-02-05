@@ -1,0 +1,101 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+  outline: none;
+  border: none;
+}
+
+body {
+  background-color: #111;
+  color: #111;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.container {
+  max-width: 1312px;
+  margin: 64px auto 0;
+}
+
+.title {
+  color: #f9f9f9;
+  text-align: center;
+  font-weight: bold;
+  font-size: 32px;
+}
+
+.crypto-rate {
+  margin: 40px auto 0;
+  width: 400px;
+  min-height: 360px;
+  background-color: #f9f9f9;
+  border-radius: 16px;
+  padding: 32px;
+}
+
+.crypto-rate__item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.crypto-rate__item:not(:first-child) {
+  margin-top: 24px;
+}
+
+.crypto-rate__item-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.crypto-rate__item-img {
+  width: 28px;
+}
+
+.crypto-rate__item-title, .crypto-rate__item-course {
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.crypto-rate__item-title {
+  margin-left: 12px;
+  font-weight: 600;
+}
+
+.crypto-rate__item-course {
+  font-weight: 700;
+}
+
+.crypto-rate__item-course._top {
+  color: #0e833b;
+}
+
+.crypto-rate__item-course._bottom {
+  color: #912a10;
+}
+
+.info {
+  margin: 64px auto 40px;
+  width: 400px;
+  background-color: #f9f9f9;
+  padding: 16px 48px;
+  border-radius: 16px;
+}
