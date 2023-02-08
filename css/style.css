@@ -2,8 +2,7 @@
 * {
   margin: 0;
   padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   font-family: "Open Sans", sans-serif;
   outline: none;
   border: none;
@@ -19,7 +18,7 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 
-input[type="number"] {
+input[type=number] {
   -moz-appearance: textfield;
 }
 
@@ -43,51 +42,34 @@ input[type="number"] {
   border-radius: 16px;
   padding: 32px;
 }
-
 .crypto-rate__item {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
 }
-
 .crypto-rate__item:not(:first-child) {
   margin-top: 24px;
 }
-
 .crypto-rate__item-content {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
-
 .crypto-rate__item-img {
   width: 28px;
 }
-
 .crypto-rate__item-title, .crypto-rate__item-course {
   font-size: 20px;
   line-height: 1.3;
 }
-
 .crypto-rate__item-title {
   margin-left: 12px;
   font-weight: 600;
 }
-
 .crypto-rate__item-course {
   font-weight: 700;
 }
-
 .crypto-rate__item-course._top {
   color: #0e833b;
 }
-
 .crypto-rate__item-course._bottom {
   color: #912a10;
 }

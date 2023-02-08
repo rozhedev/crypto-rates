@@ -1,105 +1,105 @@
 const currenciesInfo = [
     {
-        name: 'bitcoin',
         titleName: 'Bitcoin (BTC):',
         ws: 'wss://stream.binance.com:9443/ws/btcusdt@trade',
         imgPath: 'img/bitcoin.svg',
+        imgAlt: 'bitcoin',
     },
     {
-        name: 'ethereum',
         titleName: 'Ethereum (ETH):',
         ws: 'wss://stream.binance.com:9443/ws/ethusdt@trade',
         imgPath: 'img/ethereum.svg',
+        imgAlt: 'ethereum',
     },
     {
-        name: 'binance-coin',
         titleName: 'Binance Coin (BNB):',
         ws: 'wss://stream.binance.com:9443/ws/bnbusdt@trade',
         imgPath: 'img/binance-coin.svg',
+        imgAlt: 'binance-coin',
     },
     {
-        name: 'bitcoin-cash',
         titleName: 'Bitcoin Cash (BCH):',
         ws: 'wss://stream.binance.com:9443/ws/bchusdt@trade',
         imgPath: 'img/bitcoin-cash.svg',
+        imgAlt: 'bitcoin-cash',
     },
     {
-        name: 'monero',
         titleName: 'Monero (XMR):',
         ws: 'wss://stream.binance.com:9443/ws/xmrusdt@trade',
         imgPath: 'img/monero.svg',
+        imgAlt: 'monero',
     },
     {
-        name: 'solana',
         titleName: 'Solana (SOL)',
         ws: 'wss://stream.binance.com:9443/ws/solusdt@trade',
         imgPath: 'img/solana.svg',
+        imgAlt: 'solana',
     },
     {
-        name: 'litecoin',
         titleName: 'Litecoin (LTC)',
         ws: 'wss://stream.binance.com:9443/ws/ltcusdt@trade',
         imgPath: 'img/litecoin.svg',
+        imgAlt: 'litecoin',
     },
     {
-        name: 'zcash',
         titleName: 'Zcash (ZEC):',
         ws: 'wss://stream.binance.com:9443/ws/zecusdt@trade',
         imgPath: 'img/zcash.svg',
+        imgAlt: 'zcash',
     },
     {
-        name: 'dash',
         titleName: 'Dash (DASH):',
         ws: 'wss://stream.binance.com:9443/ws/dashusdt@trade',
         imgPath: 'img/dash.svg',
+        imgAlt: 'dash',
     },
     {
-        name: 'avalanche',
         titleName: 'Avalanche (AVAX)',
         ws: 'wss://stream.binance.com:9443/ws/avaxusdt@trade',
         imgPath: 'img/avalanche.svg',
+        imgAlt: 'avalanche',
     },
     {
-        name: 'polkadot',
         titleName: 'Polkadot (DOT)',
         ws: 'wss://stream.binance.com:9443/ws/dotusdt@trade',
         imgPath: 'img/polkadot.svg',
+        imgAlt: 'polkadot',
     },
     {
-        name: 'chainlink',
         titleName: 'Chainlink (LINK):',
         ws: 'wss://stream.binance.com:9443/ws/linkusdt@trade',
         imgPath: 'img/chainlink.svg',
+        imgAlt: 'chainlink',
     },
     {
-        name: 'cardano',
         titleName: 'Cardano (ADA):',
         ws: 'wss://stream.binance.com:9443/ws/adausdt@trade',
         imgPath: 'img/cardano.svg',
+        imgAlt: 'cardano',
     },
     {
-        name: 'algorand',
         titleName: 'Algorand (ALGO):',
         ws: 'wss://stream.binance.com:9443/ws/algousdt@trade',
         imgPath: 'img/algorand.svg',
+        imgAlt: 'algorand',
     },
     {
-        name: 'stellar',
         titleName: 'Stellar (XRP):',
         ws: 'wss://stream.binance.com:9443/ws/xrpusdt@trade',
         imgPath: 'img/stellar.svg',
+        imgAlt: 'stellar',
     },
     {
-        name: 'dogecoin',
         titleName: 'Dogecoin (DOGE):',
         ws: 'wss://stream.binance.com:9443/ws/dogeusdt@trade',
         imgPath: 'img/dogecoin.svg',
+        imgAlt: 'dogecoin',
     },
     {
-        name: 'tron',
         titleName: 'TRON (TRX):',
         ws: 'wss://stream.binance.com:9443/ws/trxusdt@trade',
         imgPath: 'img/tron.svg',
+        imgAlt: 'tron',
     },
 ];
 
@@ -109,14 +109,13 @@ const STATE_LIST = {
 }
 
 const cryptoRateTable = document.querySelector('.crypto-rate');
-let stockObj, price, prevPrice;
 
-function genTableFragment(imgPath, curName, curTitle) {
+function genTableFragment({imgPath, imgAlt, titleName}) {
     return `<td class="crypto-rate__item-content">
-                <img class="crypto-rate__item-img" src="${imgPath}" alt="${curName}">
-                <h3 class="crypto-rate__item-title">${curTitle}</h3>
+                <img class="crypto-rate__item-img" src="${imgPath}" alt="${imgAlt}">
+                <h3 class="crypto-rate__item-title">${titleName}</h3>
             </td>
-            <td class="crypto-rate__item-course" data-output="${curName}"></td>
+            <td class="crypto-rate__item-course" data-output="${imgAlt}"></td>
             `;
 }
 
@@ -134,23 +133,21 @@ function comparePrice(price, prevPrice, output, {top = "_top", bottom = "_bottom
 }
 
 function getTableRate() {
-    for (let i = 0; i < currenciesInfo.length; i++) {
+    let stockObj, price, prevPrice;
+    let itemClass = "crypto-rate__item"; 
 
+    for (let i = 0; i < currenciesInfo.length; i++) {
         // * TABLE GEN
-        
         let tableItem = document.createElement('tr');
-        tableItem.classList.add('crypto-rate__item');
-        tableItem.innerHTML = genTableFragment(
-            currenciesInfo[i].imgPath,
-            currenciesInfo[i].name,
-            currenciesInfo[i].titleName
-        );
+        tableItem.classList.add(itemClass);
+        
+        tableItem.innerHTML = genTableFragment(currenciesInfo[i]);
         cryptoRateTable.appendChild(tableItem);
 
         // * GET COURSE FROM WS
-
+        
         let ws = new WebSocket(currenciesInfo[i].ws);
-        ws.onmessage = function (e) {
+        ws.onmessage = (e) => {
             stockObj = JSON.parse(e.data);
             price = (+stockObj.p);
 
@@ -160,15 +157,17 @@ function getTableRate() {
             let outputList = document.querySelectorAll('.crypto-rate__item-course');
 
             // * LIVE RELOAD
-
             for (let outputItem of outputList) {
-                if (outputItem.getAttribute('data-output') == currenciesInfo[i].name) {
+                if (outputItem.getAttribute('data-output') == currenciesInfo[i].imgAlt) {
                     outputItem.textContent = price + '$';
 
                     comparePrice(price, prevPrice, outputItem, STATE_LIST);
                     prevPrice = price;
                 }
             }
+        }
+        ws.onerror = (e) => {
+            console.error(e);
         }
     }
 }
